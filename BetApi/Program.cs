@@ -1,3 +1,4 @@
+using BetApi.Contracts;
 using BetApi.Middleware;
 using BetApi.Model;
 using BetApi.Services;
@@ -7,20 +8,22 @@ using NuGet.Protocol.Core.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllersWithViews();
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddSingleton<TransactionManager>();
+builder.Services.AddScoped<IProductService, ProductManager>();
+builder.Services.AddScoped<ITransaction, TransactionManager>();
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
-//builder.Services.AddScoped<IEcommerceService, TransactionManager>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

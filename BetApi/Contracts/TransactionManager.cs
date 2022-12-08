@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BetApi.Services
 {
-    public class TransactionManager : IEcommerceService
+    public class TransactionManager : ITransaction
     {
-        readonly ApplicationContext _context;
-    
+        ApplicationContext _context;
         public TransactionManager(ApplicationContext applicationContext)
         {
             _context = applicationContext;

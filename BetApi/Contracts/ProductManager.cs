@@ -5,7 +5,7 @@ namespace BetApi.Contracts
 {
     public class ProductManager : IProductService
     {
-        readonly ApplicationContext _context;
+        ApplicationContext _context;
         public ProductManager(ApplicationContext applicationContext) {
             _context = applicationContext;
         }

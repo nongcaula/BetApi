@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Principal;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BetApi.Controllers
 {
     [Route("api/[controller]")]
@@ -14,11 +12,10 @@ namespace BetApi.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _product;
-        readonly ApplicationContext _context;
-        public ProductController(ApplicationContext applicationContext)
+        
+        public ProductController(IProductService productService)
         {
-            _context = applicationContext;
-            _product = new ProductManager(_context);
+            _product = productService ?? throw new NullReferenceException(typeof(IProductService).Name);
         }
         [HttpGet]
         public IEnumerable<Product> Get()
